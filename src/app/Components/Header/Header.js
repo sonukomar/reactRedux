@@ -2,6 +2,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar'; 
+import {connect} from 'react-redux';
 
 const Header = ({userName,isLoggedIn}) => {
     return (
@@ -13,7 +14,7 @@ const Header = ({userName,isLoggedIn}) => {
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="mr-auto"></Nav>
                         <Nav>
-                            <Nav.Link href="#">{userName}</Nav.Link>
+                            <Nav.Link href="#">{isLoggedIn ? userName:''}</Nav.Link>
                             <Nav.Link eventKey={2} href="#">
                                {isLoggedIn ? 'Logout' : 'Login'}
                             </Nav.Link>
@@ -25,4 +26,15 @@ const Header = ({userName,isLoggedIn}) => {
     )
 };
 
-export default Header;
+const mapDispatchToProps = dispatch => {
+return({
+    getLoginForm : () => {alert('css')}
+})
+};
+
+const mapStatetoProps = state => ({
+isLoggedIn:state.LoginReducer.isLoggedIn,
+userName: state.LoginReducer.form.email
+});
+
+export default connect(mapStatetoProps,mapDispatchToProps)(Header);

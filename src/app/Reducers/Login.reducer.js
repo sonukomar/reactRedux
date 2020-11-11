@@ -1,4 +1,9 @@
-import { USER_LOGGED_IN, LOAD_LOGIN_FORM,HANDLE_LOGIN_FORM_CHANGE } from '../Actions/Login.action';
+import { 
+    USER_LOGGED_IN, 
+    LOAD_LOGIN_FORM,
+    HANDLE_LOGIN_FORM_CHANGE,
+    LOGIN_FORM_SUBMITTED
+ } from '../Actions/Login.action';
 
 const initialState = {
     isLoggedIn : false,
@@ -20,6 +25,8 @@ export default function LoginReducer(state = initialState, action) {
             return {...state};
         case LOAD_LOGIN_FORM:
             return {...state};
+        case LOGIN_FORM_SUBMITTED:
+            return {...state,isLoggedIn:true}
         default:
             return state;
     }

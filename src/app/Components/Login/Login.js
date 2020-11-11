@@ -4,21 +4,25 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import './Login.css';
 import { connect } from 'react-redux';
-import {handleLoginFormChange} from '../../Actions/Login.action';
+import {handleLoginFormChange, handleLoginFormSubmit} from '../../Actions/Login.action';
 
 const Login = (props) => {
 
 const {email,password,rememberMe} = props.form;
-const {handleChange}= props;
+const {handleChange,loginFormSubmit}= props;
 
 const handleFieldChange = (e) => {
-let obj = {
-    email:email,
-    password:password,
-    rememberMe:rememberMe
-};
-obj[e.target.name] = e.target.value;
-handleChange(obj);
+    let obj = {
+        email:email,
+        password:password,
+        rememberMe:rememberMe
+    };
+    obj[e.target.name] = e.target.value;
+    handleChange(obj);
+} 
+const loginFormSu = (e) => {
+    e.preventDefault();
+    loginFormSubmit();
 }
 
 return (
@@ -26,7 +30,7 @@ return (
         <Col></Col>
         <Col>
             <h2>Please login to continue</h2>
-            <Form>
+            <Form onSubmit={loginFormSu}>
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
                     <Form.Control type="email" placeholder="Enter email" name={'email'}value={email} onChange={handleFieldChange} />
@@ -62,7 +66,8 @@ return({
 
 const mapDispatchToProps = (dispatch) => {
 return ({
-    handleChange:(payload) => {dispatch(handleLoginFormChange(payload))}
+    handleChange:(payload) => {dispatch(handleLoginFormChange(payload))},
+    loginFormSubmit:(payload) => {dispatch(handleLoginFormSubmit(payload))}
 })
 }
 
